@@ -1,17 +1,28 @@
 import React, { useState } from "react";
 
-interface CategoryProps {
-    value?: string;
-}
+type CategoryProps = {
+  selected: "online" | "offline";
+  onSelect: (category: "online" | "offline") => void;
+};
 
-export function Category({ value = "카테고리" }: CategoryProps) {
-    const [selected, setSelected] = useState(false);
-
-    return (
-        <button id="categoryContainer"onClick={() => setSelected(!selected)} type="button"
-        className={`w-auto h-[3rem] flex justify-center items-center border-[1px] rounded-[4px] transition-colors duration-200 bg-white ${selected ? 'border-primaryGreen text-primaryGreen' : 'border-black text-black'}`}>
-            {value}
-        </button>
-    );
+export function Category({ selected, onSelect }: CategoryProps) {
+  return (
+    <div className="flex gap-2">
+      <button
+        className={`w-auto h-[3rem] px-4 flex justify-center items-center border-[1px] rounded-[4px] transition-colors duration-200 ${selected === "online" ? 'border-primary text-primary bg-blue-50' : 'border-black text-black bg-white'}`}
+        onClick={() => onSelect("online")}
+        type="button"
+      >
+        온라인
+      </button>
+      <button
+        className={`w-auto h-[3rem] px-4 flex justify-center items-center border-[1px] rounded-[4px] transition-colors duration-200 ${selected === "offline" ? 'border-primary text-primary bg-blue-50' : 'border-black text-black bg-white'}`}
+        onClick={() => onSelect("offline")}
+        type="button"
+      >
+        오프라인
+      </button>
+    </div>
+  );
 }
 
